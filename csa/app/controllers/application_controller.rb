@@ -1,3 +1,11 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+    helper :all # include all helpers, all the time
+    helper_method :is_admin?
+    protect_from_forgery 
+    
+    protected
+    
+    def is_admin?
+        true
+    end
 end
