@@ -1,0 +1,47 @@
+<h1>User accounts</h1>
+
+<% if @users.length > 0 %>
+  <table>
+    <tr class="list-line-even">
+    <th>Surname</th>
+    <th>First name</th>
+    <th>Email</th>
+    <th>Grad. year</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr class="<%= cycle('list-line-odd', 'list-line-even') %>">
+        <td><%= user.surname %></td>
+        <td><%= user.firstname %></td>
+        <td><%= user.email %></td>
+        <td><%= user.grad_year %></td>
+        <td><%= link_to(image_tag('eye.jpg', alt: 'Show',
+                                                        title: 'Show details', border: '0'),
+                                     user_path(user, page: @users.current_page))
+                  %></td>
+        <td><%= link_to(image_tag('edit.png', alt: 'Edit',
+                                                        title: 'Edit item', border: '0'),
+                                     edit_user_path(user, page: @users.current_page))
+                  %></td>
+        <td><%= link_to(image_tag('destroy.gif', alt: 'Destroy',
+                                                        title: 'Destroy item', border: '0'),
+                                     user_path(user, page: @users.current_page),
+                                     data: { confirm: 'Are you sure?'},
+                                     method: :delete)
+                  %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+<br />
+<div class="digg_pagination">
+      <div>
+        <%= page_entries_info @users %>
+      </div>
+      <%= will_paginate @users, container: false %>
+</div>
+<br />
+
+<%= link_to 'New user', new_user_path(page: @users.current_page)%>
