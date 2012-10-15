@@ -1,17 +1,11 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  surname: MyString
-  firstname: MyString
-  phone: MyString
-  grad_year: 1
+  surname: Loftus
+  firstname: Chris
+  phone: 622422
+  grad_year: 1985
   jobs: false
-  email: MyString
+  email: cwl@aber.ac.uk
 
-two:
-  surname: MyString
-  firstname: MyString
-  phone: MyString
-  grad_year: 1
-  jobs: false
-  email: MyString
+
