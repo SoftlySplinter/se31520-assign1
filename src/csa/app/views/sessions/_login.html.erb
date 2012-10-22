@@ -1,0 +1,21 @@
+<% user = current_user
+   if !user %>
+    <div class="register">
+      <p><%= I18n.t('sessions.welcome-guest') %></p>
+      <%= link_to I18n.t('sessions.forgot-password'), '' %>
+      or
+      <%= link_to I18n.t('sessions.register'), '' %>
+    </div>
+<% end %>
+<div class="login-form">
+  <% if user %>
+      <p><%= I18n.t('sessions.welcome') %> <%= user.login %> </p>
+      <%= button_to I18n.t('sessions.logout'), session_path, method: :delete %>
+  <% else %>
+      <%= button_to I18n.t('sessions.login'), new_session_path, method: :get %>
+  <% end %>
+</div>
+
+
+
+

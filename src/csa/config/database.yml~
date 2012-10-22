@@ -1,0 +1,33 @@
+# SQLite version 3.x
+#   gem install sqlite3-ruby (not necessary on OS X Leopard)
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+#test:
+#  adapter: sqlite3
+#  database: db/test.sqlite3
+#  pool: 5
+#  timeout: 5000
+
+# A version of the test configuration that uses an in-memory database rather
+# than db/test.sqlite3 database. This should be faster. I've set it to silent mode
+# speed things up further, although you might like to see what it's doing the
+# first time you use this config. Note that to use this you must have the
+# rsl-memory_test_fix plugin or gem installed
+test:
+  adapter: sqlite3
+  database: ":memory:"
+  verbosity: silent
+
+production:
+  adapter: sqlite3
+  database: db/production.sqlite3
+  pool: 5
+  timeout: 5000
+

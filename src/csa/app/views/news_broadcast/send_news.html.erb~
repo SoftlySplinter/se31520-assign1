@@ -1,0 +1,3 @@
+NewsBroadcast#send_news
+
+<%= @greeting %>, find me in app/views/app/views/news_broadcast/send_news.text.erb
