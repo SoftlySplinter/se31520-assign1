@@ -1,0 +1,25 @@
+<h1>Registration</h1>
+
+<%= form_tag session_path do %>
+    <div>
+      <%= label_tag 'register', 'Register' %>
+      <br/>
+      <%= text_field_tag 'register', params[:register], id: 'register-input' %>
+    </div>
+    <div>
+      <%= label_tag 'email', 'Email' %>
+      <br />
+      <%= text_field_tag 'email', params[:email] %>
+    </div>
+    <div>
+      <%= label_tag 'password', 'Password' %>
+      <br/>
+      <%= password_field_tag 'password', params[:password] %>
+      <br/><br/>
+    </div>
+    <div>
+      <%= submit_tag 'Register' %> |
+      <%= link_to 'Back', root_path %>
+    </div>
+<% end %>
+<%= set_focus 'register-input' %>

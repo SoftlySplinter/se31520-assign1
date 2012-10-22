@@ -1,4 +1,8 @@
 Csa::Application.routes.draw do
+  match "registration" => 'registration#register', as: :registration
+
+  get "registration/unregister"
+
   resources :users do
   	collection do
   		get 'search'
@@ -10,7 +14,7 @@ Csa::Application.routes.draw do
   # A singleton resource and so no paths requiring ids are generated
   # Also, don't want to support editing of the session
   resource :session, only: [:new, :create, :destroy]
-    
+  
   match 'home' => 'home#index', as: :home
 
   # The priority is based upon order of creation:
