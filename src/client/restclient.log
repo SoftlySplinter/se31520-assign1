@@ -1,5 +1,0 @@
-# Logfile created on 2012-11-04 09:33:41 +0000 by logger.rb/31641
-RestClient.post "http://localhost:3000/session", "login=admin&password=taliesin", "Accept"=>"*/*; q=0.5, application/xml", "Accept-Encoding"=>"gzip, deflate", "Content-Length"=>"29", "Content-Type"=>"application/x-www-form-urlencoded"
-# => 302 Found | text/html 92 bytes
-RestClient.get "http://localhost:3000/users", "Accept"=>"*/*; q=0.5, application/xml", "Accept-Encoding"=>"gzip, deflate", "Cookie"=>"_csa_session=BAh7CToMdXNlcl9pZGkvOhFvcmlnaW5hbF91cmkwSSIKZmxhc2gGOgZFRm86JUFjdGlvbkRpc3BhdGNoOjpGbGFzaDo6Rmxhc2hIYXNoCToKQHVzZWRvOghTZXQGOgpAaGFzaHsAOgxAY2xvc2VkRjoNQGZsYXNoZXN7BjoLbm90aWNlSSIbTG9nZ2VkIGluIHN1Y2Nlc3NmdWxseQY7B1Q6CUBub3cwSSIPc2Vzc2lvbl9pZAY7B0ZJIiU3NGU4ZjNkZjkwNmUzMDBkMDk4Yjc3M2FjN2E0Y2QwMQY7B1Q=--b346cb2f3a0b59d9ca820d082270735127dccc2f"
-# => 200 OK | text/html 10307 bytes

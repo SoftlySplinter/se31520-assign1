@@ -19,6 +19,7 @@ class GUI
     @app = FXApp.new
     @window = FXMainWindow.new(@app, "CS-Alumni")
     
+    @titleFont = FXFont.new(@app, "helvetica", 20, FXFont::Bold)
     self.setup
   end
 
@@ -40,23 +41,29 @@ class GUI
   def setupSwitcher(switcher)
     self.createHomeSection(switcher)
     self.createJobsSection(switcher)
-    FXLabel.new(switcher, "Profile")
+    self.createProfileSection(switcher)
     FXLabel.new(switcher, "Users")
     FXLabel.new(switcher, "Broadcasts")
   end
 
   def createHomeSection(switcher)
     home = FXVerticalFrame.new(switcher)
-    title = FXFont.new(@app, "helvetica", 20, FXFont::Bold)
-    FXLabel.new(home, "Welcome to CS-Alumni News").font=title
+    FXLabel.new(home, "Welcome to CS-Alumni News").font=@titleFont
     FXLabel.new(home, "The is where the home page text will go.")
   end
 
   def createJobsSection(switcher)
     jobs = FXVerticalFrame.new(switcher)
-    title = FXFont.new(@app, "helvetica", 20, FXFont::Bold)
-    FXLabel.new(jobs, "Jobs").font=title
+    FXLabel.new(jobs, "Jobs").font=@titleFont
     FXLabel.new(jobs, "Placeholder for the jobs screen.")
+  end
+
+  def createProfileSection(switcher)
+    profile = FXVerticalFrame.new(switcher)
+    profile.connect(SEL_UPDATE) {
+      puts 'update!'
+    }
+    FXLabel.new(profile, "Profile").font=@titleFont
   end
 
   def setupShutter(shutter, switcher)

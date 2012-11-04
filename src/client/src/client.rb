@@ -3,11 +3,11 @@ require_relative 'models/broadcast.rb'
 
 require 'parseconfig'
 require 'active_resource'
-
-
+require 'logger'
 
 class Client
   CONFIG_FILE = './csa.conf'
+  LOGGER = Logger.new(ParseConfig.new(CONFIG_FILE)['logfile'])
   def initialize(user=nil, password=nil)
     parser = ParseConfig.new(CONFIG_FILE)
     @site = parser['site']
@@ -32,28 +32,27 @@ class Client
   end
 
   def loggedIn
-    # FIXME Need a better way of checking if a user is logged in.
-    
-    self.getUser(2)
+    # FIXME Need a better way of checking if a user is logged in as user 2 might not always exist.
+    self.users(:all)
     return true if @user != nil
   rescue ActiveResource::UnauthorizedAccess
     @error = "User unauthorized."
     return false
   end
 
-  def getUser(id)
+  def users(*parameters)
     User.site = @site
     User.user = @user
     User.password = @password
 
-    return User.find(id)
+    return User.find(*parameters)
   end
 
-  def getBroadcast(id)
+  def broadcast(*parameters)
     Broadcast.site = @site
     Broadcast.user = @user
     Broadcast.password = @password
 
-    return Broadcast.find(id)
+    return Broadcast.find(*parameters)
   end
 end
