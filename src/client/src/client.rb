@@ -1,11 +1,19 @@
-require 'rest_client'
+require_relative 'models/user.rb'
+require_relative 'models/broadcast.rb'
 
-def login(url, username, password)
-  sessionID = RestClient.post(url, :login => username, :password => password){ |response, request, result, &block|
-     return response.cookies if response.cookies != nil
-  }
-  raise 'Failed to login'
-end
+site = 'http://localhost:3000'
+user = 'admin'
+password = 'taliesin'
 
-id = login('http://localhost:3000/session', 'admin', 'taliesin')
-puts id
+User.site = site
+User.user = user
+User.password = password
+
+Broadcast.site = site
+Broadcast.user = user
+Broadcast.password = password
+
+broadcast = Broadcast.find(1)
+user = User.find(broadcast.user_id)
+
+puts user.firstname
