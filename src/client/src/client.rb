@@ -1,19 +1,26 @@
 require_relative 'models/user.rb'
 require_relative 'models/broadcast.rb'
 
-site = 'http://localhost:3000'
-user = 'admin'
-password = 'taliesin'
+class Client
+  def initialize(site, user, password)
+    @site = site
+    @user = user
+    @password = password
+  end
 
-User.site = site
-User.user = user
-User.password = password
+  def getUser(id)
+    User.site = @site
+    User.user = @user
+    User.password = @password
 
-Broadcast.site = site
-Broadcast.user = user
-Broadcast.password = password
+    return User.find(id)
+  end
 
-broadcast = Broadcast.find(1)
-user = User.find(broadcast.user_id)
+  def getBroadcast(id)
+    Broadcast.site = @site
+    Broadcast.user = @user
+    Broadcast.password = @password
 
-puts user.firstname
+    return Broadcast.find(id)
+  end
+end
