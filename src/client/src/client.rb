@@ -2,26 +2,27 @@ require_relative 'models/user.rb'
 require_relative 'models/broadcast.rb'
 
 class Client
-  def initialize(site=nil, user=nil, password=nil)
+  def initialize(site="http://localhost:3000", user=nil, password=nil)
     @site = site
     @user = user
     @password = password
   end
 
-  def site=(site)
-    @site = site
-  end
-
-  def user=(user)
+  def login(user, password)
     @user = user
-  end
-
-  def user
-    return @user
-  end
-
-  def password=(password)
     @password = password
+    return loggedIn
+  end
+
+  def logout
+    @user = nil
+    @password = nil
+  end
+
+  def loggedIn
+    # FIXME Need a better way of checking if a user is logged in.
+    return true if @user != nil
+    return false
   end
 
   def getUser(id)
