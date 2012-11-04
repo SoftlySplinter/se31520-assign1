@@ -17,7 +17,7 @@ class GUI
     @client = client
 
     @app = FXApp.new
-    @window = FXMainWindow.new(@app, "CSA Client")
+    @window = FXMainWindow.new(@app, "CS-Alumni")
     
     self.setup
   end
@@ -102,6 +102,8 @@ class GUI
             logBut.text = "Logout"
             # Send ID_ACCEPT to the dialog as everything's worked as expected
             dialog.handle(@window, MKUINT(FXDialogBox::ID_ACCEPT, SEL_COMMAND), nil)
+          else
+            FXMessageBox.warning(dialog, FXMessageBox::MBOX_OK, "Unable to login", @client.getError)
           end
         }
         cancelBut = FXButton.new(butFrame, "Cancel")

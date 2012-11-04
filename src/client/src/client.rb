@@ -1,11 +1,19 @@
 require_relative 'models/user.rb'
 require_relative 'models/broadcast.rb'
 
+require 'parseconfig'
+require 'active_resource'
+
+
+
 class Client
-  def initialize(site="http://localhost:3000", user=nil, password=nil)
-    @site = site
+  CONFIG_FILE = './csa.conf'
+  def initialize(user=nil, password=nil)
+    parser = ParseConfig.new(CONFIG_FILE)
+    @site = parser['site']
     @user = user
     @password = password
+    @error = nil
   end
 
   def login(user, password)
@@ -19,9 +27,17 @@ class Client
     @password = nil
   end
 
+  def getError
+    return @error
+  end
+
   def loggedIn
     # FIXME Need a better way of checking if a user is logged in.
+    
+    self.getUser(2)
     return true if @user != nil
+  rescue ActiveResource::UnauthorizedAccess
+    @error = "User unauthorized."
     return false
   end
 
