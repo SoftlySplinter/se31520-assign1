@@ -1,6 +1,7 @@
 require_relative('../client.rb')
 require_relative('login.rb')
 require_relative('users.rb')
+require_relative('broadcasts.rb')
 require 'fox16'
 
 include Fox
@@ -45,7 +46,7 @@ class GUI
     self.createJobsSection(switcher)
     self.createProfileSection(switcher)
     UserView.new(@app, @client, switcher)
-    FXLabel.new(switcher, "Broadcasts")
+    BroadcastView.new(@app, @client, switcher)
   end
 
   def createHomeSection(switcher)
