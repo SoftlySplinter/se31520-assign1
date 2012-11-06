@@ -1,4 +1,5 @@
-require_relative('client.rb')
+require_relative('../client.rb')
+require_relative('login.rb')
 require 'fox16'
 
 include Fox
@@ -60,9 +61,6 @@ class GUI
 
   def createProfileSection(switcher)
     profile = FXVerticalFrame.new(switcher)
-    profile.connect(SEL_UPDATE) {
-      puts 'update!'
-    }
     FXLabel.new(profile, "Profile").font=@titleFont
   end
 
@@ -82,44 +80,7 @@ class GUI
     broadBut.connect(SEL_COMMAND) { switcher.current = 4}
 
     logBut = ShutterButton.new(shutterItem.content, "Login")
-    logBut.connect(SEL_COMMAND) { 
-      if @client.loggedIn
-        if(FXMessageBox.question(@window, MBOX_YES_NO, "Logout Confirmation", "Are you sure you want to logout?") == MBOX_CLICKED_YES)
-          @client.logout
-          switcher.current = 0
-          logBut.text = "Login"
-        end
-      else
-        dialog = FXDialogBox.new(@window, "Login")
-        userPane = FXHorizontalFrame.new(dialog)
-        FXLabel.new(userPane, "Username:")
-        userInput = FXTextField.new(userPane, 30)
-
-        passFrame = FXHorizontalFrame.new(dialog)
-        FXLabel.new(passFrame, "Password:")
-        passInput = FXTextField.new(passFrame, 30, :opts => FXTextField::TEXTFIELD_PASSWD|FRAME_SUNKEN|FRAME_THICK)
-        passInput.overstrike = true
-
-        butFrame = FXHorizontalFrame.new(dialog)
-        loginBut = FXButton.new(butFrame, "Login")
-        loginBut.connect(SEL_COMMAND) {
-          user = userInput.text
-          password = passInput.text
-          if @client.login(user, password) 
-            logBut.text = "Logout"
-            # Send ID_ACCEPT to the dialog as everything's worked as expected
-            dialog.handle(@window, MKUINT(FXDialogBox::ID_ACCEPT, SEL_COMMAND), nil)
-          else
-            FXMessageBox.warning(dialog, FXMessageBox::MBOX_OK, "Unable to login", @client.getError)
-          end
-        }
-        cancelBut = FXButton.new(butFrame, "Cancel")
-        cancelBut.connect(SEL_COMMAND) {
-          dialog.handle(@window, MKUINT(FXDialogBox::ID_CANCEL, SEL_COMMAND), nil)
-        }
-        dialog.execute()
-      end
-    }
+    puts Login.new(@client, @window).attachLogin(switcher, logBut)
 
     self.enableForLogin(profileBut)
     self.enableForLogin(userBut)
