@@ -1,5 +1,6 @@
 require_relative('../client.rb')
 require_relative('login.rb')
+require_relative('users.rb')
 require 'fox16'
 
 include Fox
@@ -19,8 +20,8 @@ class GUI
 
     @app = FXApp.new
     @window = FXMainWindow.new(@app, "CS-Alumni")
-    
     @titleFont = FXFont.new(@app, "helvetica", 20, FXFont::Bold)
+    
     self.setup
   end
 
@@ -43,7 +44,7 @@ class GUI
     self.createHomeSection(switcher)
     self.createJobsSection(switcher)
     self.createProfileSection(switcher)
-    FXLabel.new(switcher, "Users")
+    UserView.new(@app, @client, switcher)
     FXLabel.new(switcher, "Broadcasts")
   end
 
@@ -102,6 +103,3 @@ class GUI
   end
 end
 
-client = Client.new()
-gui = GUI.new(client)
-gui.run
