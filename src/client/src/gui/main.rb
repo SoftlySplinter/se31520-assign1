@@ -45,8 +45,8 @@ class GUI
     self.createHomeSection(switcher)
     self.createJobsSection(switcher)
     self.createProfileSection(switcher)
-    UserView.new(@app, @client, switcher)
-    BroadcastView.new(@app, @client, switcher)
+    @userView = UserView.new(@app, @client, switcher)
+    @broadcastView = BroadcastView.new(@app, @client, switcher)
   end
 
   def createHomeSection(switcher)
@@ -76,10 +76,16 @@ class GUI
     profileBut.connect(SEL_COMMAND) { switcher.current = 2}
 
     userBut = ShutterButton.new(shutterItem.content, "Users")
-    userBut.connect(SEL_COMMAND) { switcher.current = 3}
+    userBut.connect(SEL_COMMAND) { 
+      switcher.current = 3
+      @userView.refresh
+    }
 
     broadBut = ShutterButton.new(shutterItem.content, "Broadcasts")
-    broadBut.connect(SEL_COMMAND) { switcher.current = 4}
+    broadBut.connect(SEL_COMMAND) { 
+      switcher.current = 4
+      @broadcastView.refresh
+    }
 
     logBut = ShutterButton.new(shutterItem.content, "Login")
     puts Login.new(@client, @window).attachLogin(switcher, logBut)
