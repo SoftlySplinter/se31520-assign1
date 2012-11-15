@@ -48,7 +48,7 @@ class Client
     return User.find(*parameters)
   end
 
-  def broadcast(*parameters)
+  def broadcasts(*parameters)
     Broadcast.site = @site
     Broadcast.user = @user
     Broadcast.password = @password

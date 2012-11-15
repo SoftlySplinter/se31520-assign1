@@ -34,19 +34,29 @@ class UserView < FXVerticalFrame
     @lists.push(FXList.new(panes, :opts => LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LIST_SINGLESELECT,   :width => 150))
     @lists.push(FXList.new(panes, :opts => LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LIST_SINGLESELECT,   :width => 150))
   end
-
-  def refresh()
-    self.propagate(@client.users(:all))
+  def hasPage
+    data = @client.users(:all, :params => { :page => @curPage })
+    return !data.empty?
   end
 
-  def propagate(data)
+  def refresh()
+    @curPage = 1
     for list in @lists do
       list.clearItems()
     end
 
+    while self.hasPage do
+      self.propagate(@client.users(:all, :params => { :page => @curPage }))
+      @curPage += 1
+    end
+  end
+
+  def propagate(data)
     for entry in data do
-	      @lists[0].appendItem(entry.surname)
+      @lists[0].appendItem(entry.surname)
       @lists[1].appendItem(entry.firstname)
+      @lists[2].appendItem(entry.email)
+      @lists[3].appendItem("#{entry.grad_year}")
     end
   end
 end

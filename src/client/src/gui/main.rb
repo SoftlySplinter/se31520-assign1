@@ -82,7 +82,10 @@ class GUI
     }
 
     broadBut = ShutterButton.new(shutterItem.content, "Broadcasts")
-    broadBut.connect(SEL_COMMAND) { switcher.current = 4}
+    broadBut.connect(SEL_COMMAND) { 
+      switcher.current = 4
+      @broadcastView.refresh
+    }
 
     logBut = ShutterButton.new(shutterItem.content, "Login")
     puts Login.new(@client, @window).attachLogin(switcher, logBut)
