@@ -5,6 +5,12 @@ class UsersController < ApplicationController
 
   before_filter :admin_required, only: [:index, :search, :destroy]
 
+  def current
+    respond_to do |format|
+      format.json { render json: User.find(current_user.id) }
+    end
+  end
+
   def search
     # Use will_paginate's :conditions and :joins to search across both the
     # users and user_details tables. search_fields private method will add a field

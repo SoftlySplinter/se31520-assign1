@@ -1,11 +1,8 @@
 Csa::Application.routes.draw do
-  match "registration" => 'registration#register', as: :registration
-
-  get "registration/unregister"
-
   resources :users do
   	collection do
   		get 'search'
+		get 'current'
   	end
   end
   

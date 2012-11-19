@@ -32,8 +32,11 @@ class Client
   end
 
   def loggedIn
-    # FIXME Need a better way of checking if a user is logged in as regular users cannot access all users
-    return self.users(:all)
+    User.site = @site
+    User.user = @user
+    User.password = @password
+    user =  User.get(:current)
+    return User.exists?(user["id"])
   rescue ActiveResource::UnauthorizedAccess
     @error = "User unauthorized."
     return false
@@ -50,6 +53,9 @@ class Client
     return User.find(*parameters)
   rescue ActiveResource::UnauthorizedAccess
     return false
+  rescue ActiveResource::ClientError => e
+    @error = e.message
+    return false
   end
 
   def broadcasts(*parameters)
@@ -59,6 +65,9 @@ class Client
 
     return Broadcast.find(*parameters)
   rescue ActiveResource::UnauthorizedAccess
+    return false
+  rescue ActiveResource::ClientError => e
+    @error = e.message
     return false
   end
 end
