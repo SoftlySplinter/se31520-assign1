@@ -91,13 +91,21 @@ class GUI
     puts Login.new(@client, @window).attachLogin(switcher, logBut)
 
     self.enableForLogin(profileBut)
-    self.enableForLogin(userBut)
-    self.enableForLogin(broadBut)
+    self.enableForLoginAndAdmin(userBut)
+    self.enableForLoginAndAdmin(broadBut)
   end
   
   def enableForLogin(button)
     button.connect(SEL_UPDATE) do |sender, sel, ptr|
-       message = @client.loggedIn ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE
+       message = @client.loggedIn? ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE
+       sender.handle(@window, MKUINT(message, SEL_COMMAND), nil)
+    end
+  end
+
+
+  def enableForLoginAndAdmin(button)
+    button.connect(SEL_UPDATE) do |sender, sel, ptr|
+       message = @client.loggedIn? && @client.isAdmin? ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE
        sender.handle(@window, MKUINT(message, SEL_COMMAND), nil)
     end
   end

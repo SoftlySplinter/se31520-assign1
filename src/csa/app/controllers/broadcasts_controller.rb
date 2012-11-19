@@ -15,7 +15,7 @@ class BroadcastsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @broadcasts }
+      format.json { render json: @broadcasts.to_json({ :include => [:feeds] }) }
     end
   end
 
@@ -27,7 +27,11 @@ class BroadcastsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @broadcast }
+      format.json {
+        render json: @broadcast.to_json( {
+          :include => [:feeds]
+        } )
+      }
     end
   end
 

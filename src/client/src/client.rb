@@ -34,7 +34,7 @@ class Client
     Broadcast.user = @user
     Broadcast.password = @password
 
-    return loggedIn
+    return loggedIn?
   end
 
   def logout

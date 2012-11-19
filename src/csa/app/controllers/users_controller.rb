@@ -65,7 +65,11 @@ class UsersController < ApplicationController
                            locals: {user: @user, current_page: @current_page},
                            layout: false }
         format.html # show.html.erb
-        format.json { render json: @user }
+        format.json {
+          render json: @user.to_json( {
+            :include => [:image]
+          })
+        }
       end
     else
       indicate_illegal_request I18n.t('users.not-your-account')
