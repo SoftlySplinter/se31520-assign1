@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  surname: Loftus
-  firstname: Chris
+  surname: Brown
+  firstname: Alex
   phone: 622422
   grad_year: 1985
   jobs: false
-  email: cwl@aber.ac.uk
+  email: adb9@aber.ac.uk
 
 
