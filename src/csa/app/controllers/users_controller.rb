@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def current
     @user = User.find(current_user.id)
     respond_to do |format|
-      format.json { render json: @user }
+      format.json
     end
   end
 

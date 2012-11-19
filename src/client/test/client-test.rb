@@ -24,7 +24,9 @@ class ClientTest < Test::Unit::TestCase
     client = Client.new('admin','taliesin')
 
     # Client should be logged in.
-    assert(client.loggedIn?, 'Admin user should be logged in.')    
+    assert(client.loggedIn?, 'Admin user should be logged in.')
+
+    assert(client.isAdmin?, 'Admin user should be recognised as an admin user.')
 
     # Should be able to access all Users when admin.
     assert(client.users(:all), 'Should be able to access users when admin.')
@@ -49,6 +51,8 @@ class ClientTest < Test::Unit::TestCase
 
     # Client should be logged in
     assert(client.loggedIn?, 'Regular user should be logged in.')
+
+    assert(!client.isAdmin?, 'Regular user should not be recognised as an admin user.')
 
     # Should not be able to access Users when user.
     assert(!client.users(:all), 'Should not be able to access users when user.')
