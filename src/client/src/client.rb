@@ -14,27 +14,53 @@ class Client
     @user = user
     @password = password
     @error = nil
+
+    User.site = @site
+    User.user = @user
+    User.password = @password
+
+    Broadcast.site = @site
+    Broadcast.user = @user
+    Broadcast.password = @password
   end
 
   def login(user, password)
     @user = user
     @password = password
+
+    User.user = @user
+    User.password = @password
+    
+    Broadcast.user = @user
+    Broadcast.password = @password
+
     return loggedIn
   end
 
   def logout
     @user = nil
     @password = nil
+
+    User.user = nil
+    User.password = nil
+
+    Broadcast.user = nil
+    Broadcast.password = nil
   end
 
   def getError
     return @error
   end
 
-  def loggedIn
-    User.site = @site
-    User.user = @user
-    User.password = @password
+  def loggedIn?
+    return currentUserExists?
+  end
+
+  def isAdmin?
+    return false
+  end
+
+  def currentUserExists?
     user =  User.get(:current)
     return User.exists?(user["id"])
   rescue ActiveResource::UnauthorizedAccess
@@ -45,29 +71,32 @@ class Client
     return false
   end
 
-  def users(*parameters)
-    User.site = @site
-    User.user = @user
-    User.password = @password
-
-    return User.find(*parameters)
+  def currentUser
+    user = User.get(:current)
+    return User.find(:one, user["id"])
   rescue ActiveResource::UnauthorizedAccess
-    return false
+    @error = "User unauthorized."
+    return nil
   rescue ActiveResource::ClientError => e
     @error = e.message
-    return false
+    return nil
+  end
+
+  def users(*parameters)
+    return User.find(*parameters)
+  rescue ActiveResource::UnauthorizedAccess
+    return nil
+  rescue ActiveResource::ClientError => e
+    @error = e.message
+    return nil
   end
 
   def broadcasts(*parameters)
-    Broadcast.site = @site
-    Broadcast.user = @user
-    Broadcast.password = @password
-
     return Broadcast.find(*parameters)
   rescue ActiveResource::UnauthorizedAccess
-    return false
+    return nil
   rescue ActiveResource::ClientError => e
     @error = e.message
-    return false
+    return nil
   end
 end

@@ -10,7 +10,7 @@ class ClientTest < Test::Unit::TestCase
     client = Client.new
     
     # Should not be logged in.
-    assert(!client.loggedIn, 'Should not be logged in with no credentials.')
+    assert(!client.loggedIn?, 'Should not be logged in with no credentials.')
 
     # Should not be able to access Users when not logged in.
     assert(!client.users(:all), 'Should not be able to access users when not logged in.')
@@ -24,7 +24,7 @@ class ClientTest < Test::Unit::TestCase
     client = Client.new('admin','taliesin')
 
     # Client should be logged in.
-    assert(client.loggedIn, 'Admin user should be logged in.')    
+    assert(client.loggedIn?, 'Admin user should be logged in.')    
 
     # Should be able to access all Users when admin.
     assert(client.users(:all), 'Should be able to access users when admin.')
@@ -38,7 +38,7 @@ class ClientTest < Test::Unit::TestCase
     client = Client.new('admin', 'asdf')
 
     # Should not be logged in.
-    assert(!client.loggedIn, 'Should not be logged in with invalid credentials')
+    assert(!client.loggedIn?, 'Should not be logged in with invalid credentials')
 
     # Access tested by test_not_loggedin
   end
@@ -48,7 +48,7 @@ class ClientTest < Test::Unit::TestCase
     client = Client.new('cwl0', 'secret')
 
     # Client should be logged in
-    assert(client.loggedIn, 'Regular user should be logged in.')
+    assert(client.loggedIn?, 'Regular user should be logged in.')
 
     # Should not be able to access Users when user.
     assert(!client.users(:all), 'Should not be able to access users when user.')
@@ -62,7 +62,7 @@ class ClientTest < Test::Unit::TestCase
     client = Client.new('cwl0', 'test')
 
     # Client should not be logged in
-    assert(!client.loggedIn, 'Should not be logged in with invalid credentials')
+    assert(!client.loggedIn?, 'Should not be logged in with invalid credentials')
 
     # Access tested by test_not_loggedin
   end
