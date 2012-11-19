@@ -6,8 +6,9 @@ class UsersController < ApplicationController
   before_filter :admin_required, only: [:index, :search, :destroy]
 
   def current
+    @user = User.find(current_user.id)
     respond_to do |format|
-      format.json { render json: User.find(current_user.id) }
+      format.json { render json: @user }
     end
   end
 

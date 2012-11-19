@@ -57,7 +57,7 @@ class Client
   end
 
   def isAdmin?
-    return false
+    user =  User.get(:current)
   end
 
   def currentUserExists?
