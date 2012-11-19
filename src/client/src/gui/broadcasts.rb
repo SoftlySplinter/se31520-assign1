@@ -58,8 +58,17 @@ class BroadcastView < FXVerticalFrame
     for entry in data do
       @lists[0].appendItem(entry.created_at)
       @lists[1].appendItem(entry.updated_at)
-      @lists[2].appendItem('TODO')
+      feeds = buildFeeds(entry.feeds)
+      @lists[2].appendItem(feeds)
       @lists[3].appendItem(entry.content)
     end
+  end
+
+  def buildFeeds(feeds)
+    str = ''
+    feeds.each do |feed|
+      str += feed.name + ' '
+    end
+    return str
   end
 end

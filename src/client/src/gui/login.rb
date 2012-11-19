@@ -12,7 +12,7 @@ class Login
   # Attach login functionality to a button
   def attachLogin(switcher, button)
     button.connect(SEL_COMMAND) { 
-      if @client.loggedIn
+      if @client.loggedIn?
         if(FXMessageBox.question(@window, MBOX_YES_NO, "Logout Confirmation", "Are you sure you want to logout?") == MBOX_CLICKED_YES)
           @client.logout
           switcher.current = 0
