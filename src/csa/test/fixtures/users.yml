@@ -8,4 +8,12 @@ one:
   jobs: false
   email: adb9@aber.ac.uk
 
+two:
+  surname: Brown2
+  firstname: Alex
+  phone: 622422
+  grad_year: 1985
+  jobs: false
+  email: adb9@example.com
+
 
