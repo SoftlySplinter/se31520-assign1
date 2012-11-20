@@ -5,6 +5,13 @@ class UsersController < ApplicationController
 
   before_filter :admin_required, only: [:index, :search, :destroy]
 
+  def current
+    @user = User.find(current_user.id)
+    respond_to do |format|
+      format.json
+    end
+  end
+
   def search
     # Use will_paginate's :conditions and :joins to search across both the
     # users and user_details tables. search_fields private method will add a field
@@ -58,7 +65,11 @@ class UsersController < ApplicationController
                            locals: {user: @user, current_page: @current_page},
                            layout: false }
         format.html # show.html.erb
-        format.json { render json: @user }
+        format.json {
+          render json: @user.to_json( {
+            :include => [:image]
+          })
+        }
       end
     else
       indicate_illegal_request I18n.t('users.not-your-account')

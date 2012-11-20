@@ -1,0 +1,5 @@
+one:
+  login: 'admin'
+  salt: ''
+  crypted_password: ''
+  user_id: 1

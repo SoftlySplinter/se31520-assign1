@@ -1,8 +1,0 @@
-<ul class="autocomplete_list">
-  <%  drop_list.each do |li| -%>
-  <li class="autocomplete-item">
-    <%= remote_image_for li, id, page, :small %>
-    <span onClick="q_auto_completer.setToBeHidden(true)"><%=  li.surname %></span> 
-  </li>
-  <% end -%>
-</ul>

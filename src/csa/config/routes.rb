@@ -2,6 +2,7 @@ Csa::Application.routes.draw do
   resources :users do
   	collection do
   		get 'search'
+		get 'current'
   	end
   end
   
@@ -10,7 +11,7 @@ Csa::Application.routes.draw do
   # A singleton resource and so no paths requiring ids are generated
   # Also, don't want to support editing of the session
   resource :session, only: [:new, :create, :destroy]
-    
+  
   match 'home' => 'home#index', as: :home
 
   # The priority is based upon order of creation:
