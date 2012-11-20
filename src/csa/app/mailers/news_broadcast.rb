@@ -1,4 +1,5 @@
 class NewsBroadcast < ActionMailer::Base
+    ADMIN_EMAIL = 'adb9@aber.ac.uk'
     def send_news(user, broadcast, email_list)
         @firstname = user.firstname
         @content = broadcast.content
