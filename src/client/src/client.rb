@@ -74,7 +74,7 @@ class Client
 
   def currentUser
     user = User.get(:current)
-    return User.find(:one, user["id"])
+    return User.find(user["id"])
   rescue ActiveResource::UnauthorizedAccess
     @error = "User unauthorized."
     return nil
