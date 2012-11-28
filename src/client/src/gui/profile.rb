@@ -17,6 +17,10 @@ class ProfileView < FXVerticalFrame
     FXLabel.new(self, "Profile").font=@titleFont
 
     matrix = FXMatrix.new(self, 2, MATRIX_BY_COLUMNS|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y)
+
+
+    FXLabel.new(matrix, nil)
+    @imageView = FXImageView.new(matrix, :opts => LAYOUT_FILL_X|LAYOUT_FILL_Y)
     
     FXLabel.new(matrix, 'First Name:')
     @firstname = FXTextField.new(matrix, 25)
@@ -54,5 +58,32 @@ class ProfileView < FXVerticalFrame
     @grad.text = "#{@user.grad_year}"
     state = @user.jobs ? TRUE : FALSE
     @jobs.setCheck(state, false)
+
+
+    filename = nil
+    if @user.has_attribute? "image"
+      # TODO Load image from URL
+      puts 'test'
+      filename = File.join('images', 'blank-cover_large.jpg')
+    else
+      filename = File.join('images', 'blank-cover_large.jpg')
+    end
+    img = FXJPGImage.new(@app, nil, IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP)
+
+    if img.nil?
+      FXMessageBox.error(self, MBOX_OK, "Error loading image",
+        "Unsupported image type: #{file}")
+      return
+    end
+
+    if !File.exists?(filename)
+      FXMessageBox.error(self, MBOX_OK, "IO Error", "File #{file} does not exist")
+    end
+
+    FXFileStream.open(filename, FXStreamLoad) { |stream| img.loadPixels(stream) }
+    img.create
+    @imageView.image = img
+  rescue FXStreamNoReadError
+    FXMessageBox.error(self, MBOX_OK, "Unable to read FXStream.", "Unable to read FXStream.")
   end
 end
