@@ -41,12 +41,21 @@ class ProfileView < FXVerticalFrame
     @jobs = FXCheckButton.new(matrix, nil)
 
     FXLabel.new(matrix, nil)
-    FXButton.new(matrix, 'Update')
-
+    FXButton.new(matrix, 'Update').connect(SEL_COMMAND) do
+      self.save
+    end
   end
 
-  def user=(user)
-    @user = user
+  def save
+    @user.firstname = @firstname.text
+    @user.surname = @surname.text
+    @user.email = @email.text
+    @user.phone = @phone.text
+    @user.grad_year = Integer(@grad.text)
+    @user.jobs = @jobs.checked?
+    @user.save!
+  rescue ActiveResource::ResourceInvalid => e
+    puts e
   end
 
   def refresh()
