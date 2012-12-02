@@ -8,20 +8,25 @@ require 'logger'
 class Client
   CONFIG_FILE = './csa.conf'
   LOGGER = Logger.new(ParseConfig.new(CONFIG_FILE)['logfile'])
+
   def initialize(user=nil, password=nil)
     parser = ParseConfig.new(CONFIG_FILE)
     @site = parser['site']
     @user = user
     @password = password
     @error = nil
+    @logged_in = false
+    @is_admin = false
 
     User.site = @site
     User.user = @user
     User.password = @password
+    User.logger = LOGGER
 
     Broadcast.site = @site
     Broadcast.user = @user
     Broadcast.password = @password
+    Broadcast.logger = LOGGER
   end
 
   def login(user, password)
@@ -34,12 +39,16 @@ class Client
     Broadcast.user = @user
     Broadcast.password = @password
 
-    return loggedIn?
+    @logged_in = currentUserExists?
+    @is_admin = checkIsAdmin?
+    return @logged_in
   end
 
   def logout
     @user = nil
     @password = nil
+    @logged_in = false
+    @is_admin = false
 
     User.user = nil
     User.password = nil
@@ -53,10 +62,14 @@ class Client
   end
 
   def loggedIn?
-    return currentUserExists?
+    return @logged_in
   end
 
   def isAdmin?
+    return @is_admin
+  end
+
+  def checkIsAdmin?
     user = User.get(:current)
     return user['login'] == 'admin'
   end
