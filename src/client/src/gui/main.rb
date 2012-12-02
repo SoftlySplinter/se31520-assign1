@@ -2,6 +2,7 @@ require_relative('../client.rb')
 require_relative('login.rb')
 require_relative('users.rb')
 require_relative('broadcasts.rb')
+require_relative('profile.rb')
 require 'fox16'
 
 include Fox
@@ -44,7 +45,7 @@ class GUI
   def setupSwitcher(switcher)
     self.createHomeSection(switcher)
     self.createJobsSection(switcher)
-    self.createProfileSection(switcher)
+    @profileView = ProfileView.new(@app, @client, switcher)
     @userView = UserView.new(@app, @client, switcher)
     @broadcastView = BroadcastView.new(@app, @client, switcher)
   end
@@ -61,10 +62,6 @@ class GUI
     FXLabel.new(jobs, "Placeholder for the jobs screen.")
   end
 
-  def createProfileSection(switcher)
-    profile = FXVerticalFrame.new(switcher)
-    FXLabel.new(profile, "Profile").font=@titleFont
-  end
 
   def setupShutter(shutter, switcher)
     shutterItem = FXShutterItem.new(shutter, "Menu", nil, LAYOUT_FILL_Y)
@@ -73,7 +70,10 @@ class GUI
     jobsBut.connect(SEL_COMMAND) { switcher.current = 1}
 
     profileBut = ShutterButton.new(shutterItem.content, "Profile")
-    profileBut.connect(SEL_COMMAND) { switcher.current = 2}
+    profileBut.connect(SEL_COMMAND) { 
+      switcher.current = 2
+      @profileView.refresh
+    }
 
     userBut = ShutterButton.new(shutterItem.content, "Users")
     userBut.connect(SEL_COMMAND) { 
