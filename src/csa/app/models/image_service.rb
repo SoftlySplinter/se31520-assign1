@@ -46,6 +46,19 @@ class ImageService
   end
 
   def update_attributes(user_attributes, image_file)
+    # Make sure no mass-assigned protected attributes are assigned here.
+    protected_atts = []
+
+    user_attributes.keys.each do |key|
+      protected_atts.append(key) if not User.accessible_attributes.to_a.include?(key)
+    end
+
+    protected_atts.each do |att|
+      user_attributes.delete(att)
+    end
+
+    puts user_attributes
+
     # This is a quick way to update all user attributes
     # in one go from a hash
     @user.attributes = user_attributes
