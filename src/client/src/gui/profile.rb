@@ -47,15 +47,24 @@ class ProfileView < FXVerticalFrame
   end
 
   def save
+    @user.created_at = nil
+    @user.updated_at = nil
+
     @user.firstname = @firstname.text
     @user.surname = @surname.text
     @user.email = @email.text
     @user.phone = @phone.text
     @user.grad_year = Integer(@grad.text)
     @user.jobs = @jobs.checked?
+
+    @user.image = nil
+
     @user.save!
+
   rescue ActiveResource::ResourceInvalid => e
-    puts e
+    FXMessageBox.error(self, MBOX_OK, "Invalid Resource", "#{e}")
+  rescue ActiveResource::ServerError => e
+    FXMessageBox.error(self, MBOX_OK, "Internal Server Error", "#{e}")
   end
 
   def refresh()
