@@ -33,6 +33,7 @@
 \usepackage{listings} % Required for insertion of code
 \usepackage{courier} % Required for the courier font
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{paralist}
 
 % Margins
 \topmargin=-0.45in
@@ -192,8 +193,31 @@
 %----------------------------------------------------------------------------------------
 \section{Server Architecture}
 %----------------------------------------------------------------------------------------
+Having worked in a Level 3 Service team, my attitude toward changing existing code is not
+to do so unless it is completely necessary and at that, to modify the code as little as
+possible.
 
+The first change I made was to make a simple addition to the UserController which would
+echo the username of the currently logged-in user. This allowed me to
+\begin{inparaenum}[\itshape a\upshape)]
+\item confirm the user has been logged-in;
+\item check if the user is an administrator (currently this is defined by the username
+being equal to ``admin'').
+\end{inparaenum}
 
+This change involved adding a single method (and associated \verb$GET$ route) which only rendered
+JSON (i.e. it would only accept content-type JSON).
+
+The only other change I made to add functionality to include the details of a user's
+image in the JSON file from the \verb$GET$ request to \verb$/user/:id.json$. 
+
+Figure~\ref{fig:server-uml-class}
+
+\begin{figure}[h]
+
+\caption{UML Class diagram for the CSA server}
+\label{fig:server-uml-class}
+\end{figure}
 
 %----------------------------------------------------------------------------------------
 \section{Client Architecture}
@@ -216,12 +240,22 @@ Figure~\ref{fig:uml-class} shows the UML Class diagram for the client.
 \label{fig:uml-class}
 \end{figure}
 
+From this I then started to consider the choice of language. Ruby was the obvious choice
+to keep a bit of compatibility between client and server. I also found that Rails has a
+gem which provides client-based REST access to a Rails application; ActiveResource. This
+saved me a lot of time and effort during implementation, not having to work out the 
+exact, correct, REST requests and the form the JSON files passed between the two take.
+
+Ruby also has some nice graphics libraries, FXRuby is one which is cross-platform, with a
+lot of good documentation, based on the FOX toolkit for C++.
+
 
 
 
 %----------------------------------------------------------------------------------------
 \section{Test Strategy}
 %----------------------------------------------------------------------------------------
+
 
 
 
