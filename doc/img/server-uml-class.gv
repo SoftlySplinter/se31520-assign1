@@ -1,6 +1,7 @@
 digraph D { 
   rankdir=LR;
 
+  node[shape=record]
   BroadcastsController;
   UsersController;
   SessionsController;
@@ -21,6 +22,7 @@ digraph D {
   users;
   news_broadcast;
 
+  node[shape=ellipse]
   browser;
   twitter;
   email_server;
