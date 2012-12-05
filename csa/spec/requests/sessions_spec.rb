@@ -43,7 +43,8 @@ describe "Sessions" do
 
       post '/session', login: user_detail.login, password: 'incorrect'
 
-      assert_select '#flash', text: "Couldn&#x27;t log you in as #{user_detail.login}"
+      # Annoyingly we have to change the ' to a HTML encoded form here.
+      assert_select '#flash', text: "#{I18n.t('sessions.login-failure')} #{user_detail.login}".sub('\'', '&#x27;')
     end
   end
 end
