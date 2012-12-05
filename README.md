@@ -6,7 +6,7 @@ By Alex Brown (adb9).
 Requirements
 ------------
 * ruby 1.9.3 (only tested on ruby 1.9.3p286 (2012-10-12 revision 37165) [i686-linux])
-* FOX 1.6.x (see [FXRuby Installation Guide][https://github.com/lylejohnson/fxruby/wiki])
+* FOX 1.6.x (see [FXRuby Installation Guide](https://github.com/lylejohnson/fxruby/wiki))
 * All gems specified in `csa/Gemfile` and `client/Gemfile`
 
 
@@ -20,7 +20,7 @@ cd csa/ && rails server
 ```
 
 For information on how to run Ruby on Rails as part of a production environment I would
-suggest looking at: [Ruby Guides][http://guides.rubyonrails.org/].
+suggest looking at: [Ruby Guides](http://guides.rubyonrails.org/).
 
 Configuring the CSA Client
 --------------------------
