@@ -183,7 +183,33 @@
 %----------------------------------------------------------------------------------------
 \section{Introduction}
 %----------------------------------------------------------------------------------------
+The CS-Alumni (CSA) Application prototype is a Ruby on Rails application which runs as a
+web service. It supports browser-based interaction as well as some RESTful interaction.
+The purpose of this project is to increase the capabilities of the CSA Application (to
+prevent confusion I will now refer to it as the CSA server) so it can support a 
+desktop-based client (which I will refer to as the CSA client).
 
+In recent years REST interoperability has increased in popularity and prevalence and, for
+this sort of project, REST is the best technique for the job. Other methods of 
+interoperability like sockets of RPC would be too heavyweight for purpose, and would just
+complicate the interaction between client and server.
+
+REST allows a lot of code reuse in the server, especially with Ruby on Rails which has 
+nice ideas about routing and responding formats. As Rails uses all forms of REST requests
+under the covers, not just the ones supported by browsers, it makes the change from a 
+web-based application to a RESTful service very easy (in fact a lot of it has already 
+been done).
+
+The only thing I really anticipate having to do to the server is expose a little more 
+information for more complex operations such as logging-in or checking access. As these
+operations are not handled in a RESTful way to make using the web-based version sane 
+(i.e. using sessions to persist log-in credentials).
+
+The only thing the client will need to do is expose REST requests in a nice format to
+non-technical users. Of course this will also expose the server to other potential 
+clients other than the one discussed here. But again this is not a bad thing, so long as
+security is maintained. An example of this is a technical user using cURL to issue REST
+requests via a shell.
 
 
 \clearpage
