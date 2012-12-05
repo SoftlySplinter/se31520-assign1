@@ -34,6 +34,7 @@
 \usepackage{courier} % Required for the courier font
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 \usepackage{paralist}
+\usepackage{hyperref}
 
 % Margins
 \topmargin=-0.45in
@@ -189,9 +190,10 @@
 
 
 
-
+\clearpage
 %----------------------------------------------------------------------------------------
 \section{Server Architecture}
+\label{sec:server}
 %----------------------------------------------------------------------------------------
 Having worked in a Level 3 Service team, my attitude toward changing existing code is not
 to do so unless it is completely necessary and at that, to modify the code as little as
@@ -211,14 +213,25 @@ JSON (i.e. it would only accept content-type JSON).
 The only other change I made to add functionality to include the details of a user's
 image in the JSON file from the \verb$GET$ request to \verb$/user/:id.json$. 
 
-Figure~\ref{fig:server-uml-class}
+Figure~\ref{fig:server-uml-class} shows the overall class diagram for the CSA Server.
 
 \begin{figure}[h]
-
-\caption{UML Class diagram for the CSA server}
+\centering
+\includegraphics[width=.95\textheight, angle=90]{img/server-uml-class.png}
+\caption{Class diagram for the CSA server}
 \label{fig:server-uml-class}
 \end{figure}
 
+As is apparent from figure~\ref{fig:server-uml-class}, the architecture of the server
+hasn't changed at all. The only additions are those mentioned above (the addition of a
+single \verb$GET$ route, and some additional information in the User's JSON file). Other
+than this I felt no real need to change the architecture of the server, nor the way in
+which it performs the current functionality.
+
+I did have to fix some small pieces of code in the way emails were produced and sent to
+make that code actually work. This was part of fixing the tests on the CSA server.
+
+\clearpage
 %----------------------------------------------------------------------------------------
 \section{Client Architecture}
 %----------------------------------------------------------------------------------------
@@ -232,12 +245,12 @@ without too much effort.
 The views take up the majority of the class diagram as there are different ways of 
 presenting the same information. However even these have been kept as simple as possible.
 
-Figure~\ref{fig:uml-class} shows the UML Class diagram for the client.
+Figure~\ref{fig:client-uml-class} shows the UML Class diagram for the client.
 
 \begin{figure}[h]
 %\includegraphics{img/client-uml-class.png} TODO
 \caption{UML Class diagram for the client}
-\label{fig:uml-class}
+\label{fig:client-uml-class}
 \end{figure}
 
 From this I then started to consider the choice of language. Ruby was the obvious choice
@@ -251,19 +264,30 @@ lot of good documentation, based on the FOX toolkit for C++.
 
 
 
-
+\clearpage
 %----------------------------------------------------------------------------------------
 \section{Test Strategy}
 %----------------------------------------------------------------------------------------
+The first part of the strategy was to fix all the failing tests on the CSA server; the 
+most of these were caused by there not being a logged-in user when performing the 
+actions. It was a simple matter of creating an entry in the \verb$user_details$ table in
+the test fixtures. I then got this entry and added it to a fake session Rails testing
+provides to assist with this scenario.\cite{buren07}
+
+With this the majority of the failing tests then passed. The only other broken tests
+concerned emailing out broadcasts. This was caused by a problem with the code to do this,
+as mentioned in the \nameref{sec:server}~section.
 
 
 
-
+\clearpage
 %----------------------------------------------------------------------------------------
 \section{Evaluation}
 %----------------------------------------------------------------------------------------
 
 
 %----------------------------------------------------------------------------------------
+\bibliographystyle{plain}
+\bibliography{se315}
 
 \end{document}

@@ -1,0 +1,99 @@
+digraph D { 
+  rankdir=LR;
+
+  BroadcastsController;
+  UsersController;
+  SessionsController;
+  HomeController;
+
+  BroadcastService;
+  Broadcast;
+  Feed;
+  ImageService;
+  Image;
+  User;
+  UserDetail;
+  NewsBroadcast;
+
+  home;
+  broadcasts;
+  sessions;
+  users;
+  news_broadcast;
+
+  browser;
+  twitter;
+  email_server;
+
+  subgraph cluster_0 {
+    label="controller";
+    color=black;
+
+    BroadcastsController;
+    UsersController;
+    SessionsController;
+    HomeController;
+  }
+
+  subgraph cluster_1 {
+    label="model";
+    color=black;
+    
+    BroadcastService;
+    Broadcast;
+    Feed;
+    ImageService;
+    Image;
+    User;
+    UserDetail;
+    NewsBroadcast;
+  }
+
+  subgraph cluster_2 {
+    label="view";
+    color=black;
+
+    home;
+    broadcasts;
+    sessions;
+    users;
+    news_broadcast;
+  }
+
+
+  edge[style="dashed"]
+  browser -> UsersController[label="http request"];
+  browser -> BroadcastsController;
+  browser -> SessionsController;
+  browser -> HomeController;
+
+  BroadcastsController -> BroadcastService;
+  BroadcastsController -> Broadcast;
+  BroadcastService -> twitter;
+  BroadcastService -> Feed;
+  BroadcastService -> Broadcast;
+  BroadcastService -> NewsBroadcast;
+
+  UsersController -> ImageService;
+  UsersController -> User;
+  UsersController -> Image;
+  ImageService -> User;
+  ImageService -> Image;
+
+  SessionsController -> UserDetail;
+
+  HomeController -> home;
+  BroadcastsController -> broadcasts;
+  SessionsController -> sessions;
+  UsersController -> users;
+  NewsBroadcast -> news_broadcast;
+
+  news_broadcast -> email_server[label="smtp"];
+
+
+  edge[style="solid", arrowhead="none"]
+  Image -> User;
+  User -> Broadcast;
+  User -> UserDetail;
+  Broadcast -> Feed;
+}
