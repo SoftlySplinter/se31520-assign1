@@ -21,7 +21,8 @@ class ClientTest < Test::Unit::TestCase
 
   def test_login_admin
     # If we provide valid admin credentials
-    client = Client.new('admin','taliesin')
+    client = Client.new()
+    client.login('admin','taliesin')
 
     # Client should be logged in.
     assert(client.loggedIn?, 'Admin user should be logged in.')
@@ -47,7 +48,8 @@ class ClientTest < Test::Unit::TestCase
 
   def test_login_normal_user
     # If we provide valid user credentials
-    client = Client.new('cwl0', 'secret')
+    client = Client.new()
+    client.login('cwl0', 'secret')
 
     # Client should be logged in
     assert(client.loggedIn?, 'Regular user should be logged in.')
@@ -63,7 +65,8 @@ class ClientTest < Test::Unit::TestCase
 
   def test_loging_normal_user_wrong_credentials
     # If we provide a valid user username, but not password
-    client = Client.new('cwl0', 'test')
+    client = Client.new()
+    client.login('cwl0', 'test')
 
     # Client should not be logged in
     assert(!client.loggedIn?, 'Should not be logged in with invalid credentials')

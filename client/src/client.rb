@@ -72,6 +72,9 @@ class Client
   def checkIsAdmin?
     user = User.get(:current)
     return user['login'] == 'admin'
+  rescue ActiveResource::UnauthorizedAccess => e
+    @error = e.message
+    return false
   end
 
   def currentUserExists?

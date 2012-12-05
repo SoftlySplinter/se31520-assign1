@@ -39,3 +39,29 @@ Once configured, use the following command to run the client:
 ```sh
 cd client/ && ./csa-client
 ```
+
+Running the CSA Server Tests
+----------------------------
+You can use rake to run all of the CSA Server Tests.
+
+```sh
+# Run all the tests, except rpsec
+rake test
+
+# Run unit tests only.
+rake test:units
+
+# Run functional tests only.
+rake test:functionals
+
+# Run RSpec tests.
+rake test:rspec
+```
+
+Running the CSA Client Tests
+----------------------------
+You can run the CSA Client tests using rake:
+
+```sh
+rake test
+```
