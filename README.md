@@ -5,7 +5,7 @@ By Alex Brown (adb9).
 
 Requirements
 ------------
-* ruby 1.9.3 (only tested on ruby 1.9.3p286 (2012-10-12 revision 37165) [i686-linux])
+* ruby 1.9.3 (known to work with ruby 1.9.3p286 (2012-10-12 revision 37165) [i686-linux])
 * FOX 1.6.x (see [FXRuby Installation Guide](https://github.com/lylejohnson/fxruby/wiki))
 * All gems specified in `csa/Gemfile` and `client/Gemfile`
 
