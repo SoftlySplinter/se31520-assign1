@@ -1,0 +1,66 @@
+digraph D { 
+  rankdir=LR;
+
+  user;
+  server[label="CSA Server"]
+
+  node[shape=record]
+  Client[label="Client|+login(username, password)\l+logout()\l+is_loggedin?\l+is_admin?\l+user(params)\l+broadcasts(params)\l"];
+
+  User[label="User"];
+  Broadcast[label="Broadcast"];
+
+  GUI[label="GUI|+GUI(client)\l|+run\l"];
+  UsersGUI[label="UsersGUI|+UsersGUI(client, app)\l|+update\l"];
+  BroadcastsGUI[label="BroadcastsGUI|+BroadcastsGUI(client, app)\l|+update\l"];
+  LoginGUI[label="LoginGUI|+Login(client, window)\l|+login\l"];
+  ProfileGUI[label="ProfileGUI|+ProfileGUI(client, app)\l|+update\l"];
+  ActiveResource[label="ActiveResource::Base"]
+  Frame[label="FOX::FXVerticalFrame"]
+
+  
+
+  subgraph cluster_0 {
+    label="GUI";
+    color=black;
+
+    edge[style=solid, arrowhead="none"]
+    GUI -> UsersGUI;
+    GUI -> BroadcastsGUI;
+    GUI -> LoginGUI;
+    GUI -> ProfileGUI;
+  }
+
+  subgraph cluster_1 {
+    label="Model";
+    color=black;
+  
+    User;
+    Broadcast;  
+  }
+
+  subgraph cluster_2 {
+    label="External APIs"
+
+    ActiveResource;
+    Frame;
+  }
+
+  edge[style=dashed]
+  user -> GUI[label="Interaction"];
+  Client -> User[label="Request"];
+  Client -> Broadcast[label="Request"];
+
+  ActiveResource -> server[label="HTTP Requests"];
+
+  edge[style=solid, arrowhead=none]
+  Client -> GUI;
+
+  edge[style=solid, arrowhead=empty]
+  User -> ActiveResource;
+  Broadcast -> ActiveResource;
+
+  UsersGUI -> Frame;
+  BroadcastsGUI -> Frame;
+  ProfileGUI -> Frame;
+}
