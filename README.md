@@ -15,9 +15,9 @@ Running the CSA Server
 The server runs as a typical Rails application. To start it in development mode for local
 testing run (you may also want to use `rails server -d` for detached mode):
 
-``sh
+```sh
 cd csa/ && rails server
-``
+```
 
 For information on how to run Ruby on Rails as part of a production environment I would
 suggest looking at: [Ruby Guides][http://guides.rubyonrails.org/].
@@ -36,6 +36,6 @@ Running the CSA Client
 ----------------------
 Once configured, use the following command to run the client:
 
-``sh
+```sh
 cd client/ && ./csa-client
-``
+```
