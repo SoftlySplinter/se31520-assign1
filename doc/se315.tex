@@ -262,8 +262,6 @@ exact, correct, REST requests and the form the JSON files passed between the two
 Ruby also has some nice graphics libraries, FXRuby is one which is cross-platform, with a
 lot of good documentation, based on the FOX toolkit for C++.
 
-
-
 \clearpage
 %----------------------------------------------------------------------------------------
 \section{Test Strategy}
@@ -278,7 +276,18 @@ With this the majority of the failing tests then passed. The only other broken t
 concerned emailing out broadcasts. This was caused by a problem with the code to do this,
 as mentioned in the \nameref{sec:server}~section.
 
+With this complete I then turned my attention to testing the CSA client. However, when
+I started to work out what needed testing I found out there was very little. It seemed
+pointless to test the ActiveResource models in the client as they were provided by an
+external API which should be well tested. The only thing I could test is that the methods
+for logging-in and checking administrator users to make sure the GUI only enables the
+correct options.
 
+The final step was to look back at the server. As all the client does is poll the server
+for information using ActiveResrouce it stands to reason that if the server is correctly
+tested, the client should work correctly with it. Of course in real life it's never quite
+that simple, but just running and using the client should be enough to verify that it's
+working correctly.
 
 \clearpage
 %----------------------------------------------------------------------------------------
@@ -286,8 +295,9 @@ as mentioned in the \nameref{sec:server}~section.
 %----------------------------------------------------------------------------------------
 
 
+\clearpage
 %----------------------------------------------------------------------------------------
-\bibliographystyle{plain}
+\bibliographystyle{ieeetr}
 \bibliography{se315}
 
 \end{document}
