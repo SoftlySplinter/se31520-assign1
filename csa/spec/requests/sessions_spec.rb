@@ -43,7 +43,8 @@ describe "Sessions" do
 
     it "Fails to login with incorrect details." do
       # Create the user.
-      user_detail = UserDetail.create!(login: 'test', password: 'test')
+      user = User.find(2)
+      user_detail = UserDetail.create(login: 'test', password: 'test', user: user)
       
       # Go to the login page.
       get '/session/new'
@@ -62,6 +63,36 @@ describe "Sessions" do
       # Check there's a flash message for that says the user wasn't logged in.
       # Annoyingly we have to change the ' to a HTML encoded form here.
       assert_select '#flash', text: "#{I18n.t('sessions.login-failure')} #{user_detail.login}".sub('\'', '&#x27;')
+    end
+
+    it "Can access it's own profile." do
+      # Create the user.
+      user = User.find(2)
+      user_detail = UserDetail.create(login: 'test', password: 'test', user: user)
+
+      # Login. We know this works from earilier tests.
+      post '/session', login:user_detail.login, password: user_detail.password
+      get '/home'      
+
+      # Check the profile link exists
+      assert_select '#profile' do
+        assert_select 'a', href: "/users/#{user_detail.user_id}"
+      end
+
+      get "/users/#{user_detail.user_id}"
+      response.status.should be(200)
+      
+      assert_select 'h1', content: "#{user.firstname} #{user.surname}"
+    end
+
+    it "Cannot access any other profile." do
+      user = User.find(1)
+      user_detail = UserDetail.create!(login: 'test', password: 'test')
+
+      # Login. We know this works from earilier tests.
+      post '/session', login:user_detail.login, password: user_detail.password
+      get "/users/#{user.id}"
+      expect(response).to redirect_to('/home')
     end
   end
 end

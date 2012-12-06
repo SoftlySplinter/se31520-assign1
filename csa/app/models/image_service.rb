@@ -57,8 +57,6 @@ class ImageService
       user_attributes.delete(att)
     end
 
-    puts user_attributes
-
     # This is a quick way to update all user attributes
     # in one go from a hash
     @user.attributes = user_attributes
