@@ -312,6 +312,11 @@ tested, the client should work correctly with it. Of course in real life it's ne
 that simple, but just running and using the client should be enough to verify that it's
 working correctly.
 
+I decided to look at RSpec first, it seemed like a nice testing framework I have seen 
+used very successfully on diaspora. RSpec enables better end-to-end testing acting on the
+system how a user might. I designed and implemented some tests to check the flow of a 
+user through the web front-end, testing how different modules interacted with each other.
+
 \clearpage
 %----------------------------------------------------------------------------------------
 \section{Evaluation}
@@ -381,6 +386,21 @@ if \verb$ActiveRecord.available_attributes$ contained that key. If not it was re
 from the hash. This fixed the problem and didn't cause any other problems. I had also 
 tried nullifying the attributes client side, but this meant ActiveResource sent the 
 request to the wrong place (as it lost the ID to guide it).
+
+I had a good attempt at getting the CSA Server to use SSL. I tried the provided method 
+which appears should work for older versions of Apache/httpd. However due to the way my
+home system is set-up (I run either Apache2 or ngnix) and a general lack of documentation
+into how to run Rails as a production environment with Apache2 (I didn't even try looking
+for nginx as I knew it would undoubtedly be more of a challenge to set up) I was unable
+to get Rails routing through a normal webserver and by extension couldn't get HTTPS 
+working correctly.
+
+I did try running both WEBrick and Mongrel in isolation with the option 
+\verb$config.force_ssl=true$ with very little luck. Both complained about the way the 
+request was coming in, which I can only assume is a side effect of not routing through
+a proper webserver. Either way at this point I decided it would be better to polish the
+client rather than spend a lot of time trying to get this to work without the potential
+of a working result.
 
 \clearpage
 %----------------------------------------------------------------------------------------
