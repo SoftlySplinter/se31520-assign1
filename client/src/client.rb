@@ -89,6 +89,12 @@ class Client
   rescue ActiveResource::UnauthorizedAccess => e
     @error = e.message
     return false
+  rescue  ActiveResource::ConnectionError => e
+    @error = e.message
+    return false
+  rescue Errno::ECONNREFUSED => e
+    @error = "Unable to connect to #{@site}"
+    return false
   end
 
   # Check the user that we're trying to login with exists.
@@ -104,6 +110,12 @@ class Client
   rescue ActiveResource::ClientError => e
     @error = e.message
     return false
+  rescue  ActiveResource::ConnectionError => e
+    @error = e.message
+    return false
+  rescue Errno::ECONNREFUSED => e
+    @error = "Unable to connect to #{@site}"
+    return false
   end
 
   # Get the current user.
@@ -116,6 +128,12 @@ class Client
   rescue ActiveResource::ClientError => e
     @error = e.message
     return nil
+  rescue  ActiveResource::ConnectionError => e
+    @error = e.message
+    return nil
+  rescue Errno::ECONNREFUSED => e
+    @error = "Unable to connect to #{@site}"
+    return nil
   end
 
   # Load a user or a set of users. See ActiveResource for more information.
@@ -126,6 +144,12 @@ class Client
   rescue ActiveResource::ClientError => e
     @error = e.message
     return nil
+  rescue  ActiveResource::ConnectionError => e
+    @error = e.message
+    return nil
+  rescue Errno::ECONNREFUSED => e
+    @error = "Unable to connect to #{@site}"
+    return nil
   end
 
   # Load a broadcast or set of broadcasts. See ActiveResource for more information.
@@ -135,6 +159,12 @@ class Client
     return nil
   rescue ActiveResource::ClientError => e
     @error = e.message
+    return nil
+  rescue  ActiveResource::ConnectionError => e
+    @error = e.message
+    return nil
+  rescue Errno::ECONNREFUSED => e
+    @error = "Unable to connect to #{@site}"
     return nil
   end
 end
