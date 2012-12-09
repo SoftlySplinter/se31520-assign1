@@ -38,7 +38,8 @@ class ClientTest < Test::Unit::TestCase
 
   def test_login_admin_wrong_credentials
     # If we provide a valid admin username, but not password
-    client = Client.new('admin', 'asdf')
+    client = Client.new()
+    client.login('admin', 'asdf')
 
     # Should not be logged in.
     assert(!client.loggedIn?, 'Should not be logged in with invalid credentials')
