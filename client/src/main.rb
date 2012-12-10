@@ -1,6 +1,16 @@
 require_relative 'client.rb'
 require_relative 'gui/main.rb'
 
-client = Client.new()
-gui = GUI.new(client)
-gui.run()
+
+def main
+  # Create a new client
+  client = Client.new()
+
+  # Create a new GUI and run it.
+  gui = GUI.new(client)
+  gui.run()
+
+  # That's all we need!
+end
+
+main

@@ -3,6 +3,7 @@ require 'fox16'
 
 include Fox
 
+# Class for login dialog.
 class Login
   def initialize(client, window)
     @client = client

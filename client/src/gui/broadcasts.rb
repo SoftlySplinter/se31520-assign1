@@ -2,6 +2,7 @@ require 'fox16'
 
 include Fox
 
+# Simple view showing all broadcasts.
 class BroadcastView < FXVerticalFrame
   def initialize(app, client, p, opts=0, x=0, y=0, width=0, height=0, padLeft=DEFAULT_SPACING, padRight=DEFAULT_SPACING, padTop=DEFAULT_SPACING, padBottom=DEFAULT_SPACING, hSpacing=DEFAULT_SPACING, vSpacing=DEFAULT_SPACING) # :yields: theVerticalFrame
     super(p, opts, x, y, width, height, padLeft, padRight, padTop, padBottom, hSpacing, vSpacing)
@@ -13,6 +14,8 @@ class BroadcastView < FXVerticalFrame
     self.setup
   end
 
+
+  # Set up the view.
   def setup
     FXLabel.new(self, "Broadcasts").font=@titleFont
     #TODO
@@ -36,11 +39,13 @@ class BroadcastView < FXVerticalFrame
     @lists.push(FXList.new(panes, :opts => LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LIST_SINGLESELECT,   :width => 400))
   end
 
+  # Paging.
   def hasPage
     data = @client.broadcasts(:all, :params => { :page => @curPage })
     return !data.empty?
   end
 
+  # Refresh call to load in items. Should be called before this is viewed.
   def refresh()
     @curPage = 1
     for list in @lists do
@@ -53,6 +58,7 @@ class BroadcastView < FXVerticalFrame
     end
   end
 
+  # Get all items from a given page.
   def propagate(data)
 
     for entry in data do
@@ -64,6 +70,7 @@ class BroadcastView < FXVerticalFrame
     end
   end
 
+  # Build the feeds.
   def buildFeeds(feeds)
     str = ''
     feeds.each do |feed|

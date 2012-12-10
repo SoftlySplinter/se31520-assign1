@@ -1,4 +1,10 @@
 source 'https://rubygems.org'
+
+# Import rails. We need it for the server too.
 gem 'rails', '3.2.8'
+
+# FX Ruby. Requires FOX
 gem 'fxruby'
+
+# Parsing config files.
 gem 'parseconfig'

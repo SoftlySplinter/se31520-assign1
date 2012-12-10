@@ -1,2 +1,4 @@
 #! /bin/sh
+
+# Run Rake to run the CSA Client.
 rake
