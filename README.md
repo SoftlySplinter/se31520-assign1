@@ -1,6 +1,8 @@
 SE31520: Enhancing the CS-Alumni Application
 ============================================
 
+**Note:** This is part of university coursework. Not all code is my own; most of the server was produced by Chris Loftus of Aberystwyth University, Department of Computer Science.
+
 By Alex Brown (adb9).
 
 Requirements
